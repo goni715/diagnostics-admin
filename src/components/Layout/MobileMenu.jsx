@@ -2,18 +2,15 @@ import {FaSignOutAlt} from "react-icons/fa";
 import logo from "../../assets/images/logo.png";
 import {
     MdAssignment,
-    MdOutlineAnnouncement,
-    MdOutlineClass,
-    MdReport
+    MdOutlineClass
 } from "react-icons/md";
 import {CgProfile} from "react-icons/cg";
 import {IoMdHome} from "react-icons/io";
-import {PiStudentBold} from "react-icons/pi";
 import {Link, useLocation} from "react-router-dom";
 import {logout} from "../../helper/SessionHelper.js";
 
 
-const MobileMenu = ({showMenu}) => {
+const MobileMenu = ({showMenu, setShowMenu}) => {
     const location = useLocation();
     const path = location.pathname;
 
@@ -30,19 +27,31 @@ const MobileMenu = ({showMenu}) => {
 
 
                 <ul className="pt-6 space-y-3">
-                    <Link to="/" className={`text-gray-300 text-lg flex items-center gap-x-4 cursor-pointer p-2 hover:bg-light-white rounded-md ${path==="/" && "bg-light-white"}`}>
+                    <Link to="/" onClick={()=>setShowMenu(false)} className={`text-gray-300 text-lg flex items-center gap-x-4 cursor-pointer p-2 hover:bg-light-white rounded-md ${path==="/" && "bg-light-white"}`}>
                         <IoMdHome size={22}/>
                         <span className="origin-left duration-300">Home</span>
                     </Link>
-                    <Link to="/doctors" className={`text-gray-300 text-lg flex items-center gap-x-4 cursor-pointer p-2 hover:bg-light-white rounded-md ${path==="/doctors" && "bg-light-white"}`}>
+                    <Link to="/doctors" onClick={()=>setShowMenu(false)} className={`text-gray-300 text-lg flex items-center gap-x-4 cursor-pointer p-2 hover:bg-light-white rounded-md ${path==="/doctors" && "bg-light-white"}`}>
                         <MdOutlineClass size={22}/>
                         <span className="origin-left duration-300">Doctors</span>
                     </Link>
-                    <Link to="/appointments" className={`text-gray-300 text-lg flex items-center gap-x-4 cursor-pointer p-2 hover:bg-light-white rounded-md ${path==="/appointments" && "bg-light-white"}`}>
+                    <Link to="/appointments" onClick={()=>setShowMenu(false)} className={`text-gray-300 text-lg flex items-center gap-x-4 cursor-pointer p-2 hover:bg-light-white rounded-md ${path==="/appointments" && "bg-light-white"}`}>
                         <MdAssignment size={22}/>
                         <span className="origin-left duration-300">Appointments</span>
                     </Link>
-                    <Link to="/contacts" className={`text-gray-300 text-lg flex items-center gap-x-4 cursor-pointer p-2 hover:bg-light-white rounded-md ${path==="/teachers" && "bg-light-white"}`}>
+                    <Link to="/patients" onClick={()=>setShowMenu(false)} className={`text-gray-300 text-lg flex items-center gap-x-4 cursor-pointer p-2 hover:bg-light-white rounded-md ${path==="/patients" && "bg-light-white"}`}>
+                        <MdAssignment size={22}/>
+                        <span className="origin-left duration-300">Patient List</span>
+                    </Link>
+                    <Link to="/invoices" onClick={()=>setShowMenu(false)} className={`text-gray-300 text-lg flex items-center gap-x-4 cursor-pointer p-2 hover:bg-light-white rounded-md ${path==="/invoices" && "bg-light-white"}`}>
+                        <MdAssignment size={22}/>
+                        <span className="origin-left duration-300">Invoice List</span>
+                    </Link>
+                    <Link to="/reports" onClick={()=>setShowMenu(false)} className={`text-gray-300 text-lg flex items-center gap-x-4 cursor-pointer p-2 hover:bg-light-white rounded-md ${path==="/reports" && "bg-light-white"}`}>
+                        <MdAssignment size={22}/>
+                        <span className="origin-left duration-300">Report List</span>
+                    </Link>
+                    <Link to="/contacts" onClick={()=>setShowMenu(false)} className={`text-gray-300 text-lg flex items-center gap-x-4 cursor-pointer p-2 hover:bg-light-white rounded-md ${path==="/contacts" && "bg-light-white"}`}>
                         <CgProfile size={22}/>
                         <span className="origin-left duration-300">Contact List</span>
                     </Link>

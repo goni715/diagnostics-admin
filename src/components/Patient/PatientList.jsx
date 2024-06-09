@@ -12,8 +12,9 @@ import {SetAppointment, SetAppointmentId} from "../../redux/features/appointment
 import AppointmentDeleteModal from "../modal/AppointmentDeleteModal.jsx";
 import {FaEdit} from "react-icons/fa";
 import AppointmentEditModal from "../modal/AppointmentEditModal.jsx";
-import DoctorCreateModal from "../modal/DoctorCreateModal.jsx";
 import AppointmentCreateModal from "../modal/AppointmentCreateModal.jsx";
+import {Link} from "react-router-dom";
+import {useGetPatientsQuery} from "../../redux/features/patient/patientApi.js";
 
 const columns = [
     {
@@ -21,16 +22,8 @@ const columns = [
         dataIndex: "key",
     },
     {
-        title: "Doctor",
-        dataIndex: "doctor",
-    },
-    {
-        title: "Specialist",
-        dataIndex: "specialist",
-    },
-    {
-        title: "Patient",
-        dataIndex: "patient",
+        title: "Name",
+        dataIndex: "name",
     },
     {
         title: "Phone",
@@ -41,8 +34,8 @@ const columns = [
         dataIndex: "age",
     },
     {
-        title: "Address",
-        dataIndex: "address",
+        title: "Gender",
+        dataIndex: "gender",
     },
 
     {
@@ -55,37 +48,32 @@ const columns = [
     },
 ];
 
-const AppointmentList = () => {
+const PatientList = () => {
     const dispatch = useDispatch();
-    const {data, isLoading, isError} = useGetAppointmentsQuery();
-    const appointments = data?.data || [];
+    const {data, isLoading, isError} = useGetPatientsQuery();
+    const patients = data?.data || [];
 
 
 
     const tableData = [];
 
 
-    if (!isLoading && !isError && appointments?.length > 0) {
-        for (let i = 0; i < appointments.length; i++) {
+    if (!isLoading && !isError && patients?.length > 0) {
+        for (let i = 0; i < patients.length; i++) {
             tableData.push({
                 key: Number(i + 1),
-                patient: appointments[i]?.patientName,
-                age: appointments[i]?.age,
-                phone: appointments[i]?.phone,
-                address: appointments[i]?.address,
-                doctor: appointments[i]?.doctor[0]?.name,
-                specialist: appointments[i]?.doctor[0]?.specialization,
-                date: moment(appointments[i]?.appointmentDate).format('ddd MMM DD'),
+                name: patients[i]?.name,
+                age: patients[i]?.age,
+                phone: patients[i]?.phone,
+                address: patients[i]?.address,
+                gender: patients[i]?.gender,
+                date: moment(patients[i]?.createdAt).format("YYYY-MM-DD"),
                 action: (
                     <>
                         <div className="flex space-x-2">
                             <button
                                 onClick={() => {
-                                    dispatch(SetAppointmentId(appointments[i]?._id))
-                                    dispatch(SetAppointment({
-                                           ...appointments[i],
-                                           appointmentDate:  moment(appointments[i]?.appointmentDate).format("YYYY-MM-DD")
-                                        }))
+                                    dispatch(SetAppointmentId(patients[i]?._id))
                                     dispatch(SetAppointmentEditModalOpen(true))
                                 }}
                                 className="bg-green-500 hover:bg-green-700 duration-200 px-2 py-2 text-white font-bold text-md rounded-md">
@@ -94,7 +82,7 @@ const AppointmentList = () => {
 
                             <button
                                 onClick={() => {
-                                    dispatch(SetAppointmentId(appointments[i]?._id))
+                                    dispatch(SetAppointmentId(patients[i]?._id))
                                     dispatch(SetAppointmentDeleteModalOpen(true))
                                 }}
                                 className="bg-red-500 hover:bg-red-700 duration-200 px-2 py-2 text-white font-bold text-md rounded-md">
@@ -112,7 +100,7 @@ const AppointmentList = () => {
     return (
         <>
             <div>
-                <h1 className="text-center text-3xl font-bold mb-3">Appointment List</h1>
+                <h1 className="text-center text-3xl font-bold mb-3">Patient List</h1>
 
                 {
                     isLoading ? (
@@ -122,13 +110,14 @@ const AppointmentList = () => {
                     ) : (
                         <>
                             <div className="w-auto overflow-x-auto flex justify-end py-4">
-                                <button
+                                <Link
+                                    to="/patients/new"
                                     onClick={() => {
                                         dispatch(SetAppointmentCreateModalOpen(true));
                                     }}
                                     className="ml-3 bg-indigo-500 hover:bg-indigo-700 px-2 py-2 text-white font-bold text-md rounded-md">
-                                    Add New Appointment
-                                </button>
+                                    Add New Patient
+                                </Link>
                             </div>
 
 
@@ -148,4 +137,4 @@ const AppointmentList = () => {
         ;
 };
 
-export default AppointmentList;
+export default PatientList;

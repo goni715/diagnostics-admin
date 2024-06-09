@@ -4,6 +4,8 @@ const initialState = {
     doctorEditModalOpen:false,
     doctorDeleteModalOpen:false,
     appointmentDeleteModalOpen:false,
+    appointmentEditModalOpen:false,
+    appointmentCreateModalOpen:false,
 }
 
 const modalSlice = createSlice({
@@ -22,12 +24,18 @@ const modalSlice = createSlice({
         SetAppointmentDeleteModalOpen:(state,action)=>{
             state.appointmentDeleteModalOpen=action.payload
         },
+        SetAppointmentEditModalOpen:(state,action)=>{
+            state.appointmentEditModalOpen=action.payload
+        },
+        SetAppointmentCreateModalOpen:(state,action)=>{
+            state.appointmentCreateModalOpen=action.payload
+        },
     }
 
 })
 
 
-export const {SetDoctorCreateModalOpen, SetDoctorEditModalOpen, SetDoctorDeleteModalOpen, SetAppointmentDeleteModalOpen} = modalSlice.actions;
+export const {SetDoctorCreateModalOpen, SetDoctorEditModalOpen, SetDoctorDeleteModalOpen, SetAppointmentDeleteModalOpen, SetAppointmentEditModalOpen, SetAppointmentCreateModalOpen} = modalSlice.actions;
 
 const modalSliceReducer = modalSlice.reducer;
 export default modalSliceReducer;

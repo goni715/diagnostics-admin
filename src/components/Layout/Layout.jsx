@@ -47,7 +47,7 @@ const Layout = () => {
                     </div>
                 </div>
             </div>
-            <MobileMenu showMenu={showMenu}/>
+            <MobileMenu showMenu={showMenu} setShowMenu={setShowMenu}/>
         </>
     );
 };

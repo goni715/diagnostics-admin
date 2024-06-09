@@ -4,11 +4,9 @@ import {useLoginMutation} from "../../redux/features/auth/authApi.js";
 import {useDispatch, useSelector} from "react-redux";
 import Error from "../validation/Error.jsx";
 import {SetLoginError} from "../../redux/features/auth/authSlice.js";
-import {Link, useNavigate} from "react-router-dom";
 
 const Login = () => {
     const [login, {isLoading, isSuccess}] = useLoginMutation();
-    const navigate = useNavigate();
     const dispatch = useDispatch();
     const error = useSelector((state)=> state.auth.LoginError);
 

@@ -7,6 +7,11 @@ import PublicRoute from "./components/routes/PublicRoute.jsx";
 import ContactListPage from "./pages/ContactListPage.jsx";
 import DoctorsPage from "./pages/DoctorsPage.jsx";
 import AppointmentsPage from "./pages/AppointmentsPage.jsx";
+import NotFoundPage from "./pages/NotFoundPage.jsx";
+import ReportListPage from "./pages/ReportListPage.jsx";
+import PatientCreatePage from "./pages/PatientCreatePage.jsx";
+import PatientListPage from "./pages/PatientListPage.jsx";
+import InvoiceListPage from "./pages/InvoiceListPage.jsx";
 
 
 const App = () => {
@@ -19,9 +24,13 @@ const App = () => {
                         <Route path="contacts" element={<PrivateRoute><ContactListPage/></PrivateRoute>} />
                         <Route path="doctors" element={<PrivateRoute><DoctorsPage/></PrivateRoute>} />
                         <Route path="appointments" element={<PrivateRoute><AppointmentsPage/></PrivateRoute>} />
-                        <Route path="/*" element={<PrivateRoute><HomePage/></PrivateRoute>}/>
+                        <Route path="patients" element={<PrivateRoute><PatientListPage/></PrivateRoute>} />
+                        <Route path="patients/new" element={<PrivateRoute><PatientCreatePage/></PrivateRoute>} />
+                        <Route path="invoices" element={<PrivateRoute><InvoiceListPage/></PrivateRoute>} />
+                        <Route path="reports" element={<PrivateRoute><ReportListPage/></PrivateRoute>} />
                     </Route>
                     <Route path="/login" element={<PublicRoute><LoginPage/></PublicRoute>}/>
+                    <Route path="/*" element={<PrivateRoute><NotFoundPage/></PrivateRoute>}/>
                 </Routes>
             </BrowserRouter>
         </>

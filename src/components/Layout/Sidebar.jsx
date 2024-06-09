@@ -34,16 +34,16 @@ const Sidebar = () => {
                     <>
                         <div
                             onClick={() => setOpen(!open)}
-                            className="w-[28px] h-[28px] grid place-items-center text-xl text-white bg-red-400 border-dark-purple absolute -right-4 top-9 rounded-full cursor-pointer">
-                            <IoIosArrowBack />
+                            className="bg-red-400 p-1.5 border-dark-purple absolute -right-4 top-9 rounded-full cursor-pointer">
+                            <IoIosArrowBack className="text-xl text-white"/>
                         </div>
                     </>
                 ) : (
                     <>
                         <div
                             onClick={() => setOpen(!open)}
-                            className="w-[28px] h-[28px] grid place-items-center text-xl text-white bg-red-400 border-dark-purple absolute -right-4 top-9 rounded-full cursor-pointer">
-                            <IoIosArrowForward/>
+                            className="bg-red-400 p-1.5 border-dark-purple absolute -right-5 top-9 rounded-full cursor-pointer">
+                            <IoIosArrowForward className="text-xl text-white"/>
                         </div>
                     </>
                 )
@@ -67,6 +67,21 @@ const Sidebar = () => {
                         <MdAssignment size={22}/>
                         <span className={`${!open && 'hidden'} origin-left duration-300`}>Appointments</span>
                     </Link>
+                    <Link to="/patients"
+                          className={`text-gray-300 text-lg flex items-center gap-x-4 cursor-pointer p-2 hover:bg-light-white rounded-md ${path === "/patients" && "bg-light-white"}`}>
+                        <MdAssignment size={22}/>
+                        <span className={`${!open && 'hidden'} origin-left duration-300`}>Patient List</span>
+                    </Link>
+                    <Link to="/invoices"
+                          className={`text-gray-300 text-lg flex items-center gap-x-4 cursor-pointer p-2 hover:bg-light-white rounded-md ${path === "/invoices" && "bg-light-white"}`}>
+                        <MdAssignment size={22}/>
+                        <span className={`${!open && 'hidden'} origin-left duration-300`}>Invoice List</span>
+                    </Link>
+                    <Link to="/reports"
+                          className={`text-gray-300 text-lg flex items-center gap-x-4 cursor-pointer p-2 hover:bg-light-white rounded-md ${path === "/reports" && "bg-light-white"}`}>
+                        <MdAssignment size={22}/>
+                        <span className={`${!open && 'hidden'} origin-left duration-300`}>Report List</span>
+                    </Link>
                     <Link to="/contacts"
                           className={`text-gray-300 text-lg flex items-center gap-x-4 cursor-pointer p-2 hover:bg-light-white rounded-md ${path === "/contacts" && "bg-light-white"}`}>
                         <CgProfile size={22}/>
@@ -83,6 +98,7 @@ const Sidebar = () => {
 
 
             {/*Sidebar Ended*/}
+
         </>
     );
 };

@@ -45,7 +45,7 @@ const columns = [
     },
 ];
 
-const DoctorList = () => {
+const ReportList = () => {
     const dispatch = useDispatch();
     const {data, isLoading, isError} = useGetDoctorsQuery();
     const doctors = data?.data || [];
@@ -74,7 +74,7 @@ const DoctorList = () => {
                                     dispatch(SetDoctorEditModalOpen(true))
                                 }}
                                 className="bg-green-500 hover:bg-green-700 px-2 py-2 text-white font-bold text-md rounded-md">
-                                <FaEdit size={20}/>
+                                <FaEdit size={25}/>
                             </button>
 
                             <button
@@ -83,7 +83,7 @@ const DoctorList = () => {
                                     dispatch(SetDoctorDeleteModalOpen(true))
                                 }}
                                 className="bg-red-500 hover:bg-red-700 px-2 py-2 text-white font-bold text-md rounded-md">
-                                <AiFillDelete size={20}/>
+                                <AiFillDelete size={25}/>
                             </button>
                         </div>
                     </>
@@ -97,7 +97,7 @@ const DoctorList = () => {
     return (
         <>
             <div>
-                <h1 className="text-center text-3xl font-bold mb-3">Doctor List</h1>
+                <h1 className="text-center text-3xl font-bold mb-3">Report List</h1>
 
                 {
                     isLoading ? (
@@ -112,7 +112,7 @@ const DoctorList = () => {
                                         dispatch(SetDoctorCreateModalOpen(true));
                                     }}
                                     className="ml-3 bg-indigo-500 hover:bg-indigo-700 px-2 py-2 text-white font-bold text-md rounded-md">
-                                    Add New Doctor
+                                    Create New Report
                                 </button>
                             </div>
 
@@ -132,4 +132,4 @@ const DoctorList = () => {
         ;
 };
 
-export default DoctorList;
+export default ReportList;

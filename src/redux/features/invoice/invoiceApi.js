@@ -3,12 +3,12 @@ import {SuccessToast} from "../../../helper/ValidationHelper.js";
 
 
 
-export const appointmentApi = apiSlice.injectEndpoints({
+export const invoiceApi = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
-        getAppointments: builder.query({
-            query: () => `/appointment/get-appointments`,
+        getInvoices: builder.query({
+            query: () => `/invoice/get-invoices`,
             keepUnusedDataFor: 600,
-            providesTags: ["Appointments"],
+            providesTags: ["Patients"],
             async onQueryStarted(arg, {queryFulfilled, dispatch}){
                 try{
                     const res = await queryFulfilled;
@@ -19,9 +19,9 @@ export const appointmentApi = apiSlice.injectEndpoints({
                 }
             },
         }),
-        createAppointment: builder.mutation({
+        createPatient: builder.mutation({
             query: (data) => ({
-                url: "/appointment/create-appointment",
+                url: "/patient/create-patient",
                 method: "POST",
                 body: data
             }),
@@ -74,4 +74,4 @@ export const appointmentApi = apiSlice.injectEndpoints({
 })
 
 
-export const {useGetAppointmentsQuery, useCreateAppointmentMutation, useDeleteAppointmentMutation, useUpdateAppointmentMutation} = appointmentApi;
+export const {useGetInvoicesQuery, useCreatePatientMutation, useDeleteAppointmentMutation, useUpdateAppointmentMutation} = invoiceApi;
