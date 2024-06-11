@@ -1,6 +1,7 @@
 import {Table} from "antd";
 import {useGetAllContactQuery, useUpdateContactStatusMutation} from "../../redux/features/contact/contactApi.js";
 import ListLoading from "../Loader/ListLoading.jsx";
+import moment from "moment/moment.js";
 
 const columns = [
     {
@@ -18,6 +19,10 @@ const columns = [
     {
         title: "Message",
         dataIndex: "message"
+    },
+    {
+        title: "Date",
+        dataIndex: "date"
     },
     {
         title: "Status",
@@ -55,12 +60,13 @@ const ContactList = () => {
         for (let i = 0; i < contacts.length; i++) {
             tableData.push({
                 key: Number(i + 1),
-                name: contacts[i].name,
-                email: contacts[i].email,
-                message: contacts[i].message,
+                name: contacts[i]?.name,
+                email: contacts[i]?.email,
+                message: contacts[i]?.message,
+                date: moment(contacts[i]?.createdAt).format("YYYY-MM-DD"),
                 status: (
                     <>
-                        <select key={Date.now()} defaultValue={contacts[i].status} onChange={(e)=>handleUpdateStatus(e.target.value, contacts[i]?._id)} className="border rounded-md py-2 px-3 focus:outline-none focus:border-blue-500">
+                        <select key={Date.now()} defaultValue={contacts[i]?.status} onChange={(e)=>handleUpdateStatus(e.target.value, contacts[i]?._id)} className="border rounded-md py-2 px-3 focus:outline-none focus:border-blue-500">
                             <option value="Submitted">Submitted</option>
                             <option value="Contacted">Contacted</option>
                             <option value="In Progress">In Progress</option>

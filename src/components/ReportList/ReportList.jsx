@@ -1,18 +1,18 @@
 import {Table} from "antd";
 import {FaEdit} from "react-icons/fa";
 import {AiFillDelete} from "react-icons/ai";
-import {useGetDoctorsQuery} from "../../redux/features/doctor/doctorApi.js";
 import ListLoading from "../Loader/ListLoading.jsx";
 import {
-    SetDoctorCreateModalOpen,
     SetDoctorDeleteModalOpen,
-    SetDoctorEditModalOpen
+    SetDoctorEditModalOpen, SetReportCreateModalOpen
 } from "../../redux/features/modal/modalSlice.js";
-import DoctorCreateModal from "../modal/DoctorCreateModal.jsx";
 import {useDispatch} from "react-redux";
 import {SetDoctor, SetDoctorId} from "../../redux/features/doctor/doctorSlice.js";
 import DoctorEditModal from "../modal/DoctorEditModal.jsx";
 import DoctorDeleteModal from "../modal/DoctorDeleteModal.jsx";
+import {useGetReportsQuery} from "../../redux/features/report/reportApi.js";
+import moment from "moment/moment.js";
+import ReportCreateModal from "../modal/ReportCreateModal.jsx";
 
 const columns = [
     {
@@ -20,24 +20,24 @@ const columns = [
         dataIndex: "key",
     },
     {
-        title: "Name",
-        dataIndex: "name",
+        title: "#Invoice",
+        dataIndex: "invoice",
     },
     {
-        title: "Email",
-        dataIndex: "email",
+        title: "Patient",
+        dataIndex: "patient",
     },
     {
         title: "Phone",
         dataIndex: "phone",
     },
     {
-        title: "Specialist",
-        dataIndex: "specialist",
+        title: "Test",
+        dataIndex: "test",
     },
     {
-        title: "Experience",
-        dataIndex: "experience",
+        title: "Delivery",
+        dataIndex: "delivery",
     },
     {
         title: "Action",
@@ -47,30 +47,31 @@ const columns = [
 
 const ReportList = () => {
     const dispatch = useDispatch();
-    const {data, isLoading, isError} = useGetDoctorsQuery();
-    const doctors = data?.data || [];
+    const {data, isLoading, isError} = useGetReportsQuery();
+    const reports = data?.data || [];
 
 
 
     const tableData = [];
 
 
-    if (!isLoading && !isError && doctors?.length > 0) {
-        for (let i = 0; i < doctors.length; i++) {
+    if (!isLoading && !isError && reports?.length > 0) {
+        for (let i = 0; i < reports.length; i++) {
             tableData.push({
                 key: Number(i + 1),
-                name: doctors[i]?.name,
-                email: doctors[i]?.email,
-                phone: doctors[i]?.phone,
-                specialist: doctors[i]?.specialization,
-                experience: doctors[i]?.experience,
+                name: reports[i]?.name,
+                invoice: reports[i]?.invoiceNumber,
+                phone: reports[i]?.phone,
+                patient: reports[i]?.patient[0]?.name,
+                test: reports[i]?.patient[0]?.testName,
+                delivery: moment(reports[i]?.patient[0]?.deliveryDate).format('ddd MMM DD'),
                 action: (
                     <>
                         <div className="flex gap-4">
                             <button
                                 onClick={()=>{
-                                    dispatch(SetDoctorId(doctors[i]?._id))
-                                    dispatch(SetDoctor(doctors[i]))
+                                    dispatch(SetDoctorId(reports[i]?._id))
+                                    dispatch(SetDoctor(reports[i]))
                                     dispatch(SetDoctorEditModalOpen(true))
                                 }}
                                 className="bg-green-500 hover:bg-green-700 px-2 py-2 text-white font-bold text-md rounded-md">
@@ -79,7 +80,7 @@ const ReportList = () => {
 
                             <button
                                 onClick={()=>{
-                                    dispatch(SetDoctorId(doctors[i]?._id))
+                                    dispatch(SetDoctorId(reports[i]?._id))
                                     dispatch(SetDoctorDeleteModalOpen(true))
                                 }}
                                 className="bg-red-500 hover:bg-red-700 px-2 py-2 text-white font-bold text-md rounded-md">
@@ -109,7 +110,7 @@ const ReportList = () => {
                             <div className="w-auto overflow-x-auto flex justify-end py-4">
                                 <button
                                     onClick={() => {
-                                        dispatch(SetDoctorCreateModalOpen(true));
+                                        dispatch(SetReportCreateModalOpen(true));
                                     }}
                                     className="ml-3 bg-indigo-500 hover:bg-indigo-700 px-2 py-2 text-white font-bold text-md rounded-md">
                                     Create New Report
@@ -124,7 +125,7 @@ const ReportList = () => {
                 }
             </div>
 
-            <DoctorCreateModal/>
+            <ReportCreateModal/>
             <DoctorEditModal/>
             <DoctorDeleteModal/>
         </>

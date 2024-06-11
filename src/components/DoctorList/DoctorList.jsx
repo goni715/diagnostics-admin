@@ -66,7 +66,7 @@ const DoctorList = () => {
                 experience: doctors[i]?.experience,
                 action: (
                     <>
-                        <div className="flex gap-4">
+                        <div className="flex gap-2">
                             <button
                                 onClick={()=>{
                                     dispatch(SetDoctorId(doctors[i]?._id))

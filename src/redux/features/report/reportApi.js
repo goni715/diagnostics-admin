@@ -1,14 +1,15 @@
 import {apiSlice} from "../api/apiSlice.js";
-import {SuccessToast} from "../../../helper/ValidationHelper.js";
+import {ErrorToast, SuccessToast} from "../../../helper/ValidationHelper.js";
+import {SetLoginError} from "../auth/authSlice.js";
 
 
 
-export const patientApi = apiSlice.injectEndpoints({
+export const reportApi = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
-        getPatients: builder.query({
-            query: () => `/patient/get-patients`,
+        getReports: builder.query({
+            query: () => `/report/get-reports`,
             keepUnusedDataFor: 600,
-            providesTags: ["Patients"],
+            providesTags: ["Reports"],
             async onQueryStarted(arg, {queryFulfilled, dispatch}){
                 try{
                     const res = await queryFulfilled;
@@ -19,35 +20,28 @@ export const patientApi = apiSlice.injectEndpoints({
                 }
             },
         }),
-        getPatient: builder.query({
-            query: (id) => `/patient/get-patient/${id}`,
-            keepUnusedDataFor: 600,
-            providesTags: (result, error, arg) => [
-                {type: "Patient", id:arg}, //Dynamic Tag
-            ],
-            async onQueryStarted(arg, {queryFulfilled, dispatch}){
-                try{
-                    const res = await queryFulfilled;
-                }catch(err) {
-                    //ErrorToast("Something Went Wrong!");
-                    //do nothing
-                    console.log(err);
-                }
-            },
-        }),
-        createPatient: builder.mutation({
+        createReport: builder.mutation({
             query: (data) => ({
-                url: "/patient/create-patient",
+                url: "/report/create-report",
                 method: "POST",
                 body: data
             }),
-            invalidatesTags: ["Appointments"],
+            invalidatesTags: ["Reports"],
             async onQueryStarted(arg, {queryFulfilled, dispatch}){
                 try{
                     const res = await queryFulfilled;
-                    SuccessToast("AppointmentList Create Success");
+                    SuccessToast("Report Create Success");
                 }catch(err) {
-                    console.log(err)
+                    //console.log(err)
+                    const status = err?.error?.status;
+                    if(status === 404){
+                        ErrorToast("Could not Match this Invoice Number!");
+                    }
+                    else if(status === 409){
+                        ErrorToast("This Invoice Number already associated with Report!");
+                    }else{
+                        //ErrorToast("Something Went Wrong!");
+                    }
                 }
             }
         }),
@@ -68,21 +62,18 @@ export const patientApi = apiSlice.injectEndpoints({
                 }
             }
         }),
-        updatePatient: builder.mutation({
+        updateAppointment: builder.mutation({
             query: ({id, data}) => ({
-                url: `/patient/update-patient/${id}`,
+                url: `/appointment/update-appointment/${id}`,
                 method: "PUT",
                 body:data
             }),
-            invalidatesTags: (result, error, arg) => [
-                "Patients",
-                {type: "Patient", id:arg.id}, //Dynamic Tag
-            ],
+            invalidatesTags: ["Appointments"],
             async onQueryStarted(arg, {queryFulfilled}){
                 try{
                     const res = await queryFulfilled;
                     if(res?.data?.message === "success"){
-                        SuccessToast("Update Success");
+                        SuccessToast(" Success");
                     }
                 }catch(err) {
                     console.log(err);
@@ -93,4 +84,4 @@ export const patientApi = apiSlice.injectEndpoints({
 })
 
 
-export const {useGetPatientsQuery, useGetPatientQuery, useCreatePatientMutation, useDeleteAppointmentMutation, useUpdatePatientMutation} = patientApi;
+export const {useGetReportsQuery, useCreateReportMutation, useDeleteAppointmentMutation, useUpdateAppointmentMutation} = reportApi;

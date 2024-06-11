@@ -2,7 +2,6 @@ import {Table} from "antd";
 import {AiFillDelete} from "react-icons/ai";
 import ListLoading from "../Loader/ListLoading.jsx";
 import {
-    SetAppointmentCreateModalOpen,
     SetAppointmentDeleteModalOpen, SetAppointmentEditModalOpen,
 } from "../../redux/features/modal/modalSlice.js";
 import {useDispatch} from "react-redux";
@@ -125,16 +124,6 @@ const PatientList = () => {
                         </>
                     ) : (
                         <>
-                            <div className="w-auto overflow-x-auto flex justify-end py-4">
-                                <Link
-                                    to="/patients/new"
-                                    onClick={() => {
-                                        dispatch(SetAppointmentCreateModalOpen(true));
-                                    }}
-                                    className="ml-3 bg-indigo-500 hover:bg-indigo-700 px-2 py-2 text-white font-bold text-md rounded-md">
-                                    Add New Patient
-                                </Link>
-                            </div>
 
 
                             <div className="w-auto overflow-x-auto">

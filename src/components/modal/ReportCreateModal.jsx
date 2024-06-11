@@ -2,42 +2,37 @@ import {useDispatch, useSelector} from "react-redux";
 import {Modal} from "antd";
 import {useEffect, useState} from "react";
 import {Button, Spinner} from "@material-tailwind/react";
-import {SetDoctorCreateModalOpen} from "../../redux/features/modal/modalSlice.js";
-import {useCreateDoctorMutation} from "../../redux/features/doctor/doctorApi.js";
+import {SetReportCreateModalOpen} from "../../redux/features/modal/modalSlice.js";
+import {useCreateReportMutation} from "../../redux/features/report/reportApi.js";
 
 
 
 const ReportCreateModal = () => {
     const dispatch = useDispatch();
-    const modalOpen = useSelector((state)=>state.modal.doctorCreateModalOpen);
-    const [name, setName] = useState("")
-    const [email, setEmail] = useState("")
+    const modalOpen = useSelector((state)=>state.modal.reportCreateModalOpen);
+    const [invoiceNumber, setInvoiceNumber] = useState("")
+    const [result, setResult] = useState("");
     const [phone, setPhone] = useState("")
-    const [specialization, setSpecialization] = useState("");
-    const [experience, setExperience] = useState("")
-    const [createDoctor, {isSuccess,isLoading}] = useCreateDoctorMutation();
+    const [createReport, {isSuccess,isLoading}] = useCreateReportMutation();
 
 
 
 
     const handleOk = () => {
-        dispatch(SetDoctorCreateModalOpen(false));
+        dispatch(SetReportCreateModalOpen(false));
     };
 
 
     const handleCancel = () => {
-        dispatch(SetDoctorCreateModalOpen(false));
+        dispatch(SetReportCreateModalOpen(false));
     };
 
 
     useEffect(()=>{
         if(isSuccess){
-            dispatch(SetDoctorCreateModalOpen(false));
-            setName("");
-            setEmail("");
-            setPhone("");
-            setSpecialization("")
-            setExperience("");
+            dispatch(SetReportCreateModalOpen(false));
+            setInvoiceNumber("");
+            setResult("");
         }
     },[isSuccess, dispatch])
 
@@ -47,12 +42,10 @@ const ReportCreateModal = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        createDoctor({
-            name,
-            email,
-            phone,
-            specialization,
-            experience
+        createReport({
+            invoiceNumber,
+            result,
+            phone
         })
     }
 
@@ -62,22 +55,6 @@ const ReportCreateModal = () => {
             <Modal title="Create New Report" open={modalOpen} onOk={handleOk}>
                 <form onSubmit={handleSubmit}>
                     <div className="pt-2">
-                        <label className="block pb-2" htmlFor="amount">
-                            Full Name
-                        </label>
-                        <input onChange={(e) => setName(e.target.value)} value={name}
-                               className="w-full outline-none border border-gray-400 px-4 py-2 rounded-md" type="text"
-                               id="amount" required/>
-                    </div>
-                    <div className="pt-2">
-                        <label className="block pb-2" htmlFor="ref">
-                            Email Address
-                        </label>
-                        <input onChange={(e) => setEmail(e.target.value)} value={email}
-                               className="w-full outline-none border border-gray-400 px-4 py-2 rounded-md" type="email"
-                               id="ref" required/>
-                    </div>
-                    <div className="pt-2">
                         <label className="block pb-2" htmlFor="ref">
                             Phone Number
                         </label>
@@ -86,20 +63,20 @@ const ReportCreateModal = () => {
                                id="ref" required/>
                     </div>
                     <div className="pt-2">
-                        <label className="block pb-2" htmlFor="des">
-                            Specialization
+                        <label className="block pb-2" htmlFor="invoice">
+                            Invoice Number
                         </label>
-                        <input onChange={(e) => setSpecialization(e.target.value)} value={specialization}
-                               className="w-full outline-none border border-gray-400 px-4 py-2 rounded-md" type="text"
-                               id="des" required/>
+                        <input onChange={(e) => setInvoiceNumber(e.target.value)} value={invoiceNumber}
+                               className="w-full outline-none border border-gray-400 px-4 py-2 rounded-md" type="number"
+                               id="invoice" required/>
                     </div>
                     <div className="pt-2">
-                        <label className="block pb-2" htmlFor="ref">
-                            Experience
+                        <label className="block pb-2" htmlFor="result">
+                            Result
                         </label>
-                        <input onChange={(e) => setExperience(e.target.value)} value={experience}
+                        <input onChange={(e) => setResult(e.target.value)} value={result}
                                className="w-full outline-none border border-gray-400 px-4 py-2 rounded-md" type="text"
-                               id="ref" required/>
+                               id="result" required/>
                     </div>
                     <div className="flex mt-6 gap-6">
                         <button id="cancel" type="reset" onClick={handleCancel}

@@ -67,7 +67,7 @@ const AppointmentEditModal = () => {
 
     return (
         <>
-            <Modal title="Make Appointment" open={modalOpen} onOk={handleOk}>
+            <Modal title="Update Appointment" open={modalOpen} onOk={handleOk}>
                 <form onSubmit={handleSubmit}>
                     <div className="pt-2">
                         <label className="block pb-2" htmlFor="amount">

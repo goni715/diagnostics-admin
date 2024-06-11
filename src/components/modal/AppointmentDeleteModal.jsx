@@ -39,7 +39,7 @@ const AppointmentDeleteModal = () => {
                         <button onClick={handleCancel} className="w-1/2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded disabled:cursor-not-allowed">
                             Cancel
                         </button>
-                        <Button disabled={isLoading}
+                        <Button onClick={handleDelete} disabled={isLoading}
                                 className={`${isLoading && "capitalize"} w-1/2 flex gap-3 items-center justify-center disabled:cursor-not-allowed`}
                                 type="submit"
                         >

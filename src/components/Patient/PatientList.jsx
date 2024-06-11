@@ -1,16 +1,12 @@
 import {Table} from "antd";
-import {AiFillDelete} from "react-icons/ai";
 import ListLoading from "../Loader/ListLoading.jsx";
 import {
     SetAppointmentCreateModalOpen,
-    SetAppointmentDeleteModalOpen, SetAppointmentEditModalOpen, SetDoctorCreateModalOpen
 } from "../../redux/features/modal/modalSlice.js";
 import {useDispatch} from "react-redux";
-import {useGetAppointmentsQuery} from "../../redux/features/appointment/appointmentApi.js";
 import moment from "moment";
-import {SetAppointment, SetAppointmentId} from "../../redux/features/appointment/appointmentSlice.js";
 import AppointmentDeleteModal from "../modal/AppointmentDeleteModal.jsx";
-import {FaEdit} from "react-icons/fa";
+import {FaEye} from "react-icons/fa";
 import AppointmentEditModal from "../modal/AppointmentEditModal.jsx";
 import AppointmentCreateModal from "../modal/AppointmentCreateModal.jsx";
 import {Link} from "react-router-dom";
@@ -71,23 +67,11 @@ const PatientList = () => {
                 action: (
                     <>
                         <div className="flex space-x-2">
-                            <button
-                                onClick={() => {
-                                    dispatch(SetAppointmentId(patients[i]?._id))
-                                    dispatch(SetAppointmentEditModalOpen(true))
-                                }}
+                            <Link
+                                to={`/patients/view/${patients[i]?._id}`}
                                 className="bg-green-500 hover:bg-green-700 duration-200 px-2 py-2 text-white font-bold text-md rounded-md">
-                                <FaEdit size={20}/>
-                            </button>
-
-                            <button
-                                onClick={() => {
-                                    dispatch(SetAppointmentId(patients[i]?._id))
-                                    dispatch(SetAppointmentDeleteModalOpen(true))
-                                }}
-                                className="bg-red-500 hover:bg-red-700 duration-200 px-2 py-2 text-white font-bold text-md rounded-md">
-                                <AiFillDelete size={20}/>
-                            </button>
+                                <FaEye size={20}/>
+                            </Link>
                         </div>
                     </>
                 ),
@@ -129,9 +113,6 @@ const PatientList = () => {
                 }
             </div>
 
-            <AppointmentDeleteModal/>
-            <AppointmentEditModal/>
-            <AppointmentCreateModal/>
         </>
     )
         ;

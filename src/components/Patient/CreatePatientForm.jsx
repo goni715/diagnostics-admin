@@ -1,11 +1,13 @@
-import {useState} from "react";
-import {useCreateDoctorMutation, useGetDoctorsQuery} from "../../redux/features/doctor/doctorApi.js";
+import {useEffect, useState} from "react";
+import {useGetDoctorsQuery} from "../../redux/features/doctor/doctorApi.js";
 import {Button, Spinner} from "@material-tailwind/react";
 import {Modal} from "antd";
 import {useCreatePatientMutation} from "../../redux/features/patient/patientApi.js";
+import {useDispatch} from "react-redux";
 
 
 const CreatePatientForm = () => {
+    const dispatch = useDispatch();
     const [name, setName] = useState("");
     const [phone, setPhone] = useState("");
     const [deliveryDate, setDeliveryDate] = useState("");
@@ -13,7 +15,7 @@ const CreatePatientForm = () => {
     const [address, setAddress] = useState("");
     const [gender, setGender] = useState("");
     const [bloodGroup, setBloodGroup] = useState("");
-    const [referredBy, setReferredBy] = useState(0);
+    const [referredBy, setReferredBy] = useState("");
     const [testName, setTestName] = useState("");
     const [price, setPrice] = useState("");
     const [discount, setDiscount] = useState("");
@@ -30,6 +32,23 @@ const CreatePatientForm = () => {
         e.preventDefault();
         setModalOpen(true)
     }
+
+    useEffect(()=>{
+        if(isSuccess){
+            setName("");
+            setDeliveryDate("");
+            setPhone("");
+            setAge("");
+            setAddress("");
+            setGender("");
+            setBloodGroup("");
+            setReferredBy("");
+            setTestName("");
+            setPrice("");
+            setDiscount("");
+            setModalOpen(false);
+        }
+    },[isSuccess, dispatch])
 
     const handleClick = () => {
         createPatient({
@@ -151,7 +170,7 @@ const CreatePatientForm = () => {
                         <label className="inline-block pb-2 text-md" htmlFor="price">Price</label>
                         <input onChange={(e)=>setPrice(e.target.value)} value={price} required
                                className="w-full px-4 py-2 rounded-md focus:outline-none border border-gray-400"
-                               type="number" id="price" placeholder="your first name"/>
+                               type="number" id="price" placeholder="price"/>
                     </div>
                     <div>
                         <label className="inline-block pb-2 text-md" htmlFor="discount">Discount(%)</label>
