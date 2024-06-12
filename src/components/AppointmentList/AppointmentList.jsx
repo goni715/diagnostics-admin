@@ -12,7 +12,6 @@ import {SetAppointment, SetAppointmentId} from "../../redux/features/appointment
 import AppointmentDeleteModal from "../modal/AppointmentDeleteModal.jsx";
 import {FaEdit} from "react-icons/fa";
 import AppointmentEditModal from "../modal/AppointmentEditModal.jsx";
-import DoctorCreateModal from "../modal/DoctorCreateModal.jsx";
 import AppointmentCreateModal from "../modal/AppointmentCreateModal.jsx";
 
 const columns = [

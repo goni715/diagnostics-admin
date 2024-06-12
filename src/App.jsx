@@ -13,6 +13,7 @@ import PatientCreatePage from "./pages/PatientCreatePage.jsx";
 import PatientListPage from "./pages/PatientListPage.jsx";
 import InvoiceListPage from "./pages/InvoiceListPage.jsx";
 import PatientDetailsPage from "./pages/PatientDetailsPage.jsx";
+import ReportViewPage from "./pages/ReportViewPage.jsx";
 
 
 const App = () => {
@@ -30,6 +31,7 @@ const App = () => {
                         <Route path="patients/view/:id" element={<PrivateRoute><PatientDetailsPage/></PrivateRoute>} />
                         <Route path="invoices" element={<PrivateRoute><InvoiceListPage/></PrivateRoute>} />
                         <Route path="reports" element={<PrivateRoute><ReportListPage/></PrivateRoute>} />
+                        <Route path="reports/view/:id" element={<PrivateRoute><ReportViewPage/></PrivateRoute>} />
                     </Route>
                     <Route path="/login" element={<PublicRoute><LoginPage/></PublicRoute>}/>
                     <Route path="/*" element={<PrivateRoute><NotFoundPage/></PrivateRoute>}/>

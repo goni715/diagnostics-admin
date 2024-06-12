@@ -6,6 +6,7 @@ import modalSliceReducer from "../features/modal/modalSlice.js";
 import {settingsSliceReducer} from "../features/settings/settingsSlice.js";
 import doctorSliceReducer from "../features/doctor/doctorSlice.js";
 import appointmentSliceReducer from "../features/appointment/appointmentSlice.js";
+import invoiceSliceReducer from "../features/invoice/invoiceSlice.js";
 
 
 const store = configureStore({
@@ -16,7 +17,8 @@ const store = configureStore({
         modal: modalSliceReducer,
         settings:settingsSliceReducer,
         doctor: doctorSliceReducer,
-        appointment: appointmentSliceReducer
+        appointment: appointmentSliceReducer,
+        invoice: invoiceSliceReducer
     },
     middleware: (getDefaultMiddleware)=>
         getDefaultMiddleware().concat(apiSlice.middleware)

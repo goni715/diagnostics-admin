@@ -15,7 +15,7 @@ export const userApi = apiSlice.injectEndpoints({
                 }catch(err) {
                     ErrorToast("Something Went Wrong!");
                     //do nothing
-                    console.log(err);
+                    //console.log(err);
                 }
             },
         }),
@@ -32,7 +32,7 @@ export const userApi = apiSlice.injectEndpoints({
                         // SuccessToast(" Success");
                     }
                 }catch(err) {
-                    console.log(err)
+                    //console.log(err)
                 }
             }
         }),
@@ -53,7 +53,7 @@ export const userApi = apiSlice.injectEndpoints({
                     if(status===400) {
                         ErrorToast("minimum have to be an one admin");
                     }
-                    console.log(err)
+                    //console.log(err)
                 }
             }
         }),
@@ -70,7 +70,7 @@ export const userApi = apiSlice.injectEndpoints({
                         // SuccessToast(" Success");
                     }
                 }catch(err) {
-                    console.log(err)
+                    //console.log(err)
                 }
             }
         }),
@@ -91,7 +91,7 @@ export const userApi = apiSlice.injectEndpoints({
                     if(status===400) {
                         ErrorToast("minimum have to be an one admin");
                     }
-                    console.log(err)
+                    //console.log(err)
                 }
             }
         }),

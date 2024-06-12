@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
 import {Modal} from "antd";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import {Button, Spinner} from "@material-tailwind/react";
 import {SetAppointmentEditModalOpen} from "../../redux/features/modal/modalSlice.js";
 import {

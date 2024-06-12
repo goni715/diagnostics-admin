@@ -2,45 +2,37 @@ import {useDispatch, useSelector} from "react-redux";
 import {Modal} from "antd";
 import {useEffect} from "react";
 import {Button, Spinner} from "@material-tailwind/react";
-import {SetAppointmentEditModalOpen} from "../../redux/features/modal/modalSlice.js";
-import {
-    useUpdateAppointmentMutation
-} from "../../redux/features/appointment/appointmentApi.js";
-import {SetEditAppointment} from "../../redux/features/appointment/appointmentSlice.js";
-import {useGetDoctorsQuery} from "../../redux/features/doctor/doctorApi.js";
+import {SetInvoiceUpdateModalOpen} from "../../redux/features/modal/modalSlice.js";
+import {SetEditInvoice} from "../../redux/features/invoice/invoiceSlice.js";
+import {useUpdatePatientMutation} from "../../redux/features/patient/patientApi.js";
 
 
 
 const InvoiceUpdateModal = () => {
     const dispatch = useDispatch();
-    const {data, isLoading, isError} = useGetDoctorsQuery();
-    const doctors = data?.data || [];
-    const modalOpen = useSelector((state)=>state.modal.appointmentEditModalOpen);
-    const {appointmentId,appointment} = useSelector(state=>state.appointment);
-    const {doctorId, patientName, phone, age, address, appointmentDate} = appointment || {};
-    const [updateAppointment, {isSuccess,isLoading:updateLoading}] = useUpdateAppointmentMutation();
+    const modalOpen = useSelector((state)=>state.modal.invoiceUpdateModalOpen);
+    const {invoiceId,invoice} = useSelector(state=>state.invoice);
+    const {status, deliveryStatus} = invoice || {};
+    const [updatePatient, {isSuccess,isLoading}] = useUpdatePatientMutation();
+
 
 
 
 
 
     const handleOk = () => {
-        dispatch(SetAppointmentEditModalOpen(false));
+        dispatch(SetInvoiceUpdateModalOpen(false));
     };
 
 
     const handleCancel = () => {
-        dispatch(SetAppointmentEditModalOpen(false));
+        dispatch(SetInvoiceUpdateModalOpen(false));
     };
 
 
     useEffect(()=>{
         if(isSuccess){
-            dispatch(SetAppointmentEditModalOpen(false));
-            // setPatientName("");
-            // setPhone("");
-            // setAge("");
-            // setAddress("")
+            dispatch(SetInvoiceUpdateModalOpen(false));
         }
     },[isSuccess, dispatch])
 
@@ -51,15 +43,11 @@ const InvoiceUpdateModal = () => {
     //update receive account
     const handleSubmit = (e) => {
         e.preventDefault();
-        updateAppointment({
-            id:appointmentId,
+        updatePatient({
+            id:invoiceId,
             data:{
-                doctorId,
-                patientName,
-                age,
-                phone,
-                address,
-                appointmentDate: new Date(appointmentDate)
+                status,
+                deliveryStatus
             }
         })
     }
@@ -67,103 +55,59 @@ const InvoiceUpdateModal = () => {
 
     return (
         <>
-            <Modal title="Update Appointment" open={modalOpen} onOk={handleOk}>
+            <Modal title="Update Invoice" open={modalOpen} onOk={handleOk}>
                 <form onSubmit={handleSubmit}>
                     <div className="pt-2">
                         <label className="block pb-2" htmlFor="amount">
-                            Doctor
+                            Paid Status
                         </label>
                         <select
-                            onChange={(e) => dispatch(SetEditAppointment({
-                                property: "doctorId",
+                            onChange={(e) => dispatch(SetEditInvoice({
+                                property: "status",
                                 value: e.target.value
                             }))}
-                            value={doctorId}
+                            value={status}
                             className="w-full outline-none border border-gray-400 bg-white px-4 py-2 rounded-md"
                             id="category" required>
-                            {
-                                doctors?.length>0 && (
-                                    doctors?.map((doctor,i)=> (
-                                        <option key={i.toString()} value={doctor?._id}>{doctor?.name}</option>
-                                    ))
-                                )
-                            }
 
-
+                            <option value="paid">Paid</option>
+                            <option value="unpaid">Unpaid</option>
                         </select>
                     </div>
                     <div className="pt-2">
                         <label className="block pb-2" htmlFor="amount">
-                            Patient Name
+                            Delivery Status
                         </label>
-                        <input onChange={(e) => dispatch(SetEditAppointment({
-                            property: "patientName",
-                            value: e.target.value
-                        }))} value={patientName}
-                               className="w-full outline-none border border-gray-400 px-4 py-2 rounded-md" type="text"
-                               id="amount" required/>
-                    </div>
-                    <div className="pt-2">
-                        <label className="block pb-2" htmlFor="ref">
-                            Phone Number
-                        </label>
-                        <input onChange={(e) => dispatch(SetEditAppointment({
-                            property: "phone",
-                            value: e.target.value
-                        }))} value={phone}
-                               className="w-full outline-none border border-gray-400 px-4 py-2 rounded-md" type="text"
-                               id="ref" required/>
-                    </div>
-                    <div className="pt-2">
-                        <label className="block pb-2" htmlFor="ref">
-                            Date
-                        </label>
-                        <input onChange={(e) => dispatch(SetEditAppointment({
-                            property: "appointmentDate",
-                            value: e.target.value
-                        }))} value={appointmentDate}
-                               className="w-full outline-none border border-gray-400 px-4 py-2 rounded-md" type="date"
-                               id="ref" required/>
-                    </div>
-                    <div className="pt-2">
-                        <label className="block pb-2" htmlFor="age">
-                            Age
-                        </label>
-                        <input onChange={(e) => dispatch(SetEditAppointment({
-                            property: "age",
-                            value: e.target.value
-                        }))} value={age}
-                               className="w-full outline-none border border-gray-400 px-4 py-2 rounded-md" type="text"
-                               id="age" required/>
-                    </div>
-                    <div className="pt-2">
-                        <label className="block pb-2" htmlFor="add">
-                            Address
-                        </label>
-                        <input onChange={(e) => dispatch(SetEditAppointment({
-                            property: "address",
-                            value: e.target.value
-                        }))} value={address}
-                               className="w-full outline-none border border-gray-400 px-4 py-2 rounded-md" type="text"
-                               id="add" required/>
+                        <select
+                            onChange={(e) => dispatch(SetEditInvoice({
+                                property: "deliveryStatus",
+                                value: e.target.value
+                            }))}
+                            value={deliveryStatus}
+                            className="w-full outline-none border border-gray-400 bg-white px-4 py-2 rounded-md"
+                            id="category" required>
+
+                            <option value="pending">Pending</option>
+                            <option value="delivered">Delivered</option>
+                        </select>
                     </div>
                     <div className="flex mt-6 gap-6">
                         <button id="cancel" type="reset" onClick={handleCancel}
                                 className="block cursor-pointer w-1/2 bg-red-500 hover:bg-red-700 text-center text-white font-bold py-2 px-4 rounded">
                             Cancel
                         </button>
-                        <Button disabled={updateLoading}
-                                className={`${updateLoading && "capitalize"} w-1/2 flex gap-3 items-center justify-center disabled:cursor-not-allowed`}
+                        <Button disabled={isLoading}
+                                className={`${isLoading && "capitalize"} w-1/2 flex gap-3 items-center justify-center disabled:cursor-not-allowed`}
                                 type="submit"
                         >
                             {
-                                updateLoading ? (
+                                isLoading ? (
                                     <>
                                         <Spinner className="h-4 w-4"/> Processing...
                                     </>
                                 ) : (
                                     <>
-                                        Confirm
+                                        Save Changes
                                     </>
                                 )
                             }

@@ -1,18 +1,16 @@
 import {Table} from "antd";
-import {FaEdit} from "react-icons/fa";
-import {AiFillDelete} from "react-icons/ai";
+import {FaEye} from "react-icons/fa";
 import ListLoading from "../Loader/ListLoading.jsx";
 import {
-    SetDoctorDeleteModalOpen,
-    SetDoctorEditModalOpen, SetReportCreateModalOpen
+    SetReportCreateModalOpen
 } from "../../redux/features/modal/modalSlice.js";
 import {useDispatch} from "react-redux";
-import {SetDoctor, SetDoctorId} from "../../redux/features/doctor/doctorSlice.js";
 import DoctorEditModal from "../modal/DoctorEditModal.jsx";
 import DoctorDeleteModal from "../modal/DoctorDeleteModal.jsx";
 import {useGetReportsQuery} from "../../redux/features/report/reportApi.js";
 import moment from "moment/moment.js";
 import ReportCreateModal from "../modal/ReportCreateModal.jsx";
+import {Link} from "react-router-dom";
 
 const columns = [
     {
@@ -68,24 +66,11 @@ const ReportList = () => {
                 action: (
                     <>
                         <div className="flex gap-4">
-                            <button
-                                onClick={()=>{
-                                    dispatch(SetDoctorId(reports[i]?._id))
-                                    dispatch(SetDoctor(reports[i]))
-                                    dispatch(SetDoctorEditModalOpen(true))
-                                }}
-                                className="bg-green-500 hover:bg-green-700 px-2 py-2 text-white font-bold text-md rounded-md">
-                                <FaEdit size={25}/>
-                            </button>
-
-                            <button
-                                onClick={()=>{
-                                    dispatch(SetDoctorId(reports[i]?._id))
-                                    dispatch(SetDoctorDeleteModalOpen(true))
-                                }}
-                                className="bg-red-500 hover:bg-red-700 px-2 py-2 text-white font-bold text-md rounded-md">
-                                <AiFillDelete size={25}/>
-                            </button>
+                            <Link
+                                to={`/reports/view/${reports[i]?._id}`}
+                                className="bg-green-500 hover:bg-green-700 duration-200 px-2 py-2 text-white font-bold text-md rounded-md">
+                                <FaEye size={20}/>
+                            </Link>
                         </div>
                     </>
                 ),

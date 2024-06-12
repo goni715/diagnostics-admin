@@ -13,7 +13,7 @@ export const doctorApi = apiSlice.injectEndpoints({
                 }catch(err) {
                     //ErrorToast("Something Went Wrong!");
                     //do nothing
-                    console.log(err);
+                    //console.log(err);
                 }
             },
         }),
@@ -31,8 +31,7 @@ export const doctorApi = apiSlice.injectEndpoints({
                         SuccessToast("Doctor Added Success");
                     }
                 }catch(err) {
-                    console.log(err)
-
+                    //console.log(err)
                 }
             }
         }),
@@ -50,7 +49,7 @@ export const doctorApi = apiSlice.injectEndpoints({
                         SuccessToast("Update Success");
                     }
                 }catch(err) {
-                    console.log(err)
+                    //console.log(err)
                 }
             }
         }),

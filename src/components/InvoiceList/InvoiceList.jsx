@@ -1,18 +1,14 @@
 import {Table} from "antd";
-import {AiFillDelete} from "react-icons/ai";
 import ListLoading from "../Loader/ListLoading.jsx";
 import {
-    SetAppointmentDeleteModalOpen, SetAppointmentEditModalOpen,
+    SetInvoiceUpdateModalOpen,
 } from "../../redux/features/modal/modalSlice.js";
 import {useDispatch} from "react-redux";
 import moment from "moment";
-import {SetAppointmentId} from "../../redux/features/appointment/appointmentSlice.js";
-import AppointmentDeleteModal from "../modal/AppointmentDeleteModal.jsx";
 import {FaEdit} from "react-icons/fa";
-import AppointmentEditModal from "../modal/AppointmentEditModal.jsx";
-import AppointmentCreateModal from "../modal/AppointmentCreateModal.jsx";
-import {Link} from "react-router-dom";
 import {useGetPatientsQuery} from "../../redux/features/patient/patientApi.js";
+import InvoiceUpdateModal from "../modal/InvoiceUpdateModal.jsx";
+import {SetInvoice, SetInvoiceId} from "../../redux/features/invoice/invoiceSlice.js";
 
 const columns = [
     {
@@ -88,8 +84,9 @@ const PatientList = () => {
                         <div className="flex space-x-2">
                             <button
                                 onClick={() => {
-                                    dispatch(SetAppointmentId(patients[i]?._id))
-                                    dispatch(SetAppointmentEditModalOpen(true))
+                                    dispatch(SetInvoiceId(patients[i]?._id))
+                                    dispatch(SetInvoice(patients[i]))
+                                    dispatch(SetInvoiceUpdateModalOpen(true))
                                 }}
                                 className="bg-green-500 hover:bg-green-700 duration-200 px-2 py-2 text-white font-bold text-md rounded-md">
                                 <FaEdit size={20}/>
@@ -126,9 +123,7 @@ const PatientList = () => {
                 }
             </div>
 
-            <AppointmentDeleteModal/>
-            <AppointmentEditModal/>
-            <AppointmentCreateModal/>
+           <InvoiceUpdateModal/>
         </>
     )
         ;

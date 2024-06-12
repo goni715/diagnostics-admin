@@ -6,7 +6,7 @@ import {SetLoginError} from "./authSlice.js";
 
 export const authApi = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
-               login: builder.mutation({
+        login: builder.mutation({
             query: (data) => ({
                 url: "/auth/admin-login",
                 method: "POST",

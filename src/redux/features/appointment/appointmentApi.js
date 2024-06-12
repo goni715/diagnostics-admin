@@ -15,7 +15,7 @@ export const appointmentApi = apiSlice.injectEndpoints({
                 }catch(err) {
                     //ErrorToast("Something Went Wrong!");
                     //do nothing
-                    console.log(err);
+                    //console.log(err);
                 }
             },
         }),
@@ -31,7 +31,7 @@ export const appointmentApi = apiSlice.injectEndpoints({
                     const res = await queryFulfilled;
                     SuccessToast("AppointmentList Create Success");
                 }catch(err) {
-                    console.log(err)
+                    //console.log(err)
                 }
             }
         }),
@@ -48,7 +48,7 @@ export const appointmentApi = apiSlice.injectEndpoints({
                         SuccessToast(" Success");
                     }
                 }catch(err) {
-                    console.log(err);
+                    //console.log(err);
                 }
             }
         }),
@@ -66,7 +66,7 @@ export const appointmentApi = apiSlice.injectEndpoints({
                         SuccessToast(" Success");
                     }
                 }catch(err) {
-                    console.log(err);
+                    //console.log(err);
                 }
             }
         }),

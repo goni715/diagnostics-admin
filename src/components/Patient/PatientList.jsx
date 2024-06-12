@@ -5,10 +5,7 @@ import {
 } from "../../redux/features/modal/modalSlice.js";
 import {useDispatch} from "react-redux";
 import moment from "moment";
-import AppointmentDeleteModal from "../modal/AppointmentDeleteModal.jsx";
 import {FaEye} from "react-icons/fa";
-import AppointmentEditModal from "../modal/AppointmentEditModal.jsx";
-import AppointmentCreateModal from "../modal/AppointmentCreateModal.jsx";
 import {Link} from "react-router-dom";
 import {useGetPatientsQuery} from "../../redux/features/patient/patientApi.js";
 
