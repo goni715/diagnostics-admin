@@ -94,15 +94,7 @@ const PatientList = () => {
                                 className="bg-green-500 hover:bg-green-700 duration-200 px-2 py-2 text-white font-bold text-md rounded-md">
                                 <FaEdit size={20}/>
                             </button>
-
-                            <button
-                                onClick={() => {
-                                    dispatch(SetAppointmentId(patients[i]?._id))
-                                    dispatch(SetAppointmentDeleteModalOpen(true))
-                                }}
-                                className="bg-red-500 hover:bg-red-700 duration-200 px-2 py-2 text-white font-bold text-md rounded-md">
-                                <AiFillDelete size={20}/>
-                            </button>
+                            
                         </div>
                     </>
                 ),
