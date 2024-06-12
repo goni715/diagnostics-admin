@@ -41,30 +41,13 @@ export const patientApi = apiSlice.injectEndpoints({
                 method: "POST",
                 body: data
             }),
-            invalidatesTags: ["Appointments"],
+            invalidatesTags: ["Patients"],
             async onQueryStarted(arg, {queryFulfilled, dispatch}){
                 try{
                     const res = await queryFulfilled;
                     SuccessToast("AppointmentList Create Success");
                 }catch(err) {
                     //console.log(err)
-                }
-            }
-        }),
-        deleteAppointment: builder.mutation({
-            query: (id) => ({
-                url: `/appointment/delete-appointment/${id}`,
-                method: "DELETE"
-            }),
-            invalidatesTags: ["Appointments"],
-            async onQueryStarted(arg, {queryFulfilled}){
-                try{
-                    const res = await queryFulfilled;
-                    if(res?.data?.message === "success"){
-                        SuccessToast(" Success");
-                    }
-                }catch(err) {
-                    //console.log(err);
                 }
             }
         }),
