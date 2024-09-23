@@ -3,7 +3,7 @@ import {useLocation} from "react-router-dom";
 import {useEffect} from "react";
 
 
-const HomePage = () => {
+const UserListPage = () => {
     const { pathname } = useLocation();
 
     useEffect(() => {
@@ -21,4 +21,4 @@ const HomePage = () => {
     );
 };
 
-export default HomePage;
+export default UserListPage;

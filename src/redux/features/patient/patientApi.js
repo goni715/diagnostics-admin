@@ -45,7 +45,7 @@ export const patientApi = apiSlice.injectEndpoints({
             async onQueryStarted(arg, {queryFulfilled, dispatch}){
                 try{
                     const res = await queryFulfilled;
-                    SuccessToast("AppointmentList Create Success");
+                    SuccessToast("Patient Create Success");
                 }catch(err) {
                     //console.log(err)
                 }

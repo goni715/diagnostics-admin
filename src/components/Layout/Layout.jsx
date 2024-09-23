@@ -42,7 +42,7 @@ const Layout = () => {
                     </div>
                     {/*Header Ended*/}
 
-                    <div className="content-body p-4 h-[80vh] md:h-auto overflow-y-scroll md:overflow-y-auto">
+                    <div className="content-body p-4 h-[80vh] bg-red-700 overflow-y-scroll md:overflow-y-auto">
                         <Outlet/>
                     </div>
                 </div>

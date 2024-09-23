@@ -1,7 +1,6 @@
 import Layout from "./components/Layout/Layout.jsx";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import PrivateRoute from "./components/routes/PrivateRoute.jsx";
-import HomePage from "./pages/HomePage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import PublicRoute from "./components/routes/PublicRoute.jsx";
 import ContactListPage from "./pages/ContactListPage.jsx";
@@ -14,6 +13,8 @@ import PatientListPage from "./pages/PatientListPage.jsx";
 import InvoiceListPage from "./pages/InvoiceListPage.jsx";
 import PatientDetailsPage from "./pages/PatientDetailsPage.jsx";
 import ReportViewPage from "./pages/ReportViewPage.jsx";
+import UserListPage from "./pages/UserListPage.jsx";
+import DashboardPage from "./pages/DashboardPage.jsx";
 
 
 const App = () => {
@@ -22,7 +23,8 @@ const App = () => {
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Layout/>}>
-                        <Route index element={<PrivateRoute><HomePage/></PrivateRoute>}/>
+                        <Route index element={<PrivateRoute><DashboardPage/></PrivateRoute>}/>
+                        <Route path="users" element={<PrivateRoute><UserListPage/></PrivateRoute>} />
                         <Route path="contacts" element={<PrivateRoute><ContactListPage/></PrivateRoute>} />
                         <Route path="doctors" element={<PrivateRoute><DoctorsPage/></PrivateRoute>} />
                         <Route path="appointments" element={<PrivateRoute><AppointmentsPage/></PrivateRoute>} />
