@@ -113,7 +113,7 @@ const UserList = () => {
     return (
         <>
             <div>
-                <h1 className="text-center text-3xl font-bold mb-3">User List</h1>
+                <h1 className="text-center text-3xl font-bold mb-3">Users List</h1>
                 {
                     isLoading? (
                         <>
@@ -121,7 +121,7 @@ const UserList = () => {
                         </>
                     ) : (
                         <div className="w-auto overflow-x-auto">
-                            <Table columns={columns} dataSource={tableData}/>
+                            <Table  scroll={{x: true, y: 400}} columns={columns} dataSource={tableData}/>
                         </div>
                     )
                 }
