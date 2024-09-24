@@ -8,8 +8,6 @@ import { Link } from "react-router-dom";
 import { useGetPatientsQuery } from "../../redux/features/patient/patientApi.js";
 import { useState } from "react";
 
-
-
 const PatientList = () => {
   const dispatch = useDispatch();
   const { data, isLoading, isError } = useGetPatientsQuery();
@@ -28,7 +26,7 @@ const PatientList = () => {
       onFilter: (value, record) => {
         return (
           String(record.name).toLowerCase().includes(value.toLowerCase()) ||
-          String(record.key).toLowerCase().includes(value.toLowerCase()) || 
+          String(record.key).toLowerCase().includes(value.toLowerCase()) ||
           String(record.phone).toLowerCase().includes(value.toLowerCase()) ||
           String(record.age).toLowerCase().includes(value.toLowerCase()) ||
           String(record.male).toLowerCase().includes(value.toLowerCase())

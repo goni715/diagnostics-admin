@@ -11,44 +11,56 @@ import {useGetReportsQuery} from "../../redux/features/report/reportApi.js";
 import moment from "moment/moment.js";
 import ReportCreateModal from "../modal/ReportCreateModal.jsx";
 import {Link} from "react-router-dom";
+import { useState } from "react";
 
-const columns = [
-    {
-        title: "SNo",
-        dataIndex: "key",
-    },
-    {
-        title: "#Invoice",
-        dataIndex: "invoice",
-    },
-    {
-        title: "Patient",
-        dataIndex: "patient",
-    },
-    {
-        title: "Phone",
-        dataIndex: "phone",
-    },
-    {
-        title: "Test",
-        dataIndex: "test",
-    },
-    {
-        title: "Delivery",
-        dataIndex: "delivery",
-    },
-    {
-        title: "Action",
-        dataIndex: "action",
-    },
-];
 
 const ReportList = () => {
     const dispatch = useDispatch();
     const {data, isLoading, isError} = useGetReportsQuery();
     const reports = data?.data || [];
+    const [searchText, setSearchText] = useState("");
 
 
+    const columns = [
+        {
+            title: "SNo",
+            dataIndex: "key",
+        },
+        {
+            title: "#Invoice",
+            dataIndex: "invoice",
+            filteredValue: [searchText],
+            onFilter: (value, record) => {
+              return (
+                String(record.invoice).toLowerCase().includes(value.toLowerCase()) ||
+                String(record.patient).toLowerCase().includes(value.toLowerCase()) ||
+                String(record.phone).toLowerCase().includes(value.toLowerCase()) ||
+                String(record.test).toLowerCase().includes(value.toLowerCase())
+              );
+            },
+        },
+        {
+            title: "Patient",
+            dataIndex: "patient",
+        },
+        {
+            title: "Phone",
+            dataIndex: "phone",
+        },
+        {
+            title: "Test",
+            dataIndex: "test",
+        },
+        {
+            title: "Delivery",
+            dataIndex: "delivery",
+        },
+        {
+            title: "Action",
+            dataIndex: "action",
+        },
+    ];
+    
 
     const tableData = [];
 
@@ -81,41 +93,54 @@ const ReportList = () => {
 
 
     return (
-        <>
-            <div>
-                <h1 className="text-center text-3xl font-bold mb-3">Report List</h1>
+      <>
+        <div>
+          <h1 className="text-center text-2xl lg:text-3xl font-bold mb-5 italic">
+            Report List
+          </h1>
 
-                {
-                    isLoading ? (
-                        <>
-                            <ListLoading/>
-                        </>
-                    ) : (
-                        <>
-                            <div className="w-auto overflow-x-auto flex justify-end py-4">
-                                <button
-                                    onClick={() => {
-                                        dispatch(SetReportCreateModalOpen(true));
-                                    }}
-                                    className="ml-3 bg-indigo-500 hover:bg-indigo-700 px-2 py-2 text-white font-bold text-md rounded-md">
-                                    Create New Report
-                                </button>
-                            </div>
+          {isLoading ? (
+            <>
+              <ListLoading />
+            </>
+          ) : (
+            <>
+              <div className="px-2 shadow-md rounded-md">
+                <div className="lg:px-4 w-auto overflow-x-auto flex flex-col sm:flex-row justify-between gap-3 py-4">
+                  <input
+                    type="text"
+                    className="h-full px-3 py-2 text-base text-gray-900 outline-none border-2 border-gray-300 md:w-3/4 lg:w-1/3 rounded-md"
+                    placeholder="Search..."
+                    onChange={(e) => setSearchText(e.target.value)}
+                  />
 
-                            <div className="w-auto overflow-x-auto">
-                                <Table  scroll={{x: true, y: 400}} columns={columns} dataSource={tableData}/>
-                            </div>
-                        </>
-                    )
-                }
-            </div>
+                  <button
+                    onClick={() => {
+                      dispatch(SetReportCreateModalOpen(true));
+                    }}
+                    className="bg-indigo-500 text-center hover:bg-indigo-700 px-2 py-2 text-white lg:font-bold text-md rounded-md"
+                  >
+                    Create New Report
+                  </button>
+                </div>
 
-            <ReportCreateModal/>
-            <DoctorEditModal/>
-            <DoctorDeleteModal/>
-        </>
-    )
-        ;
+                <div className="w-auto overflow-x-auto">
+                  <Table
+                    scroll={{ x: true, y: 400 }}
+                    columns={columns}
+                    dataSource={tableData}
+                  />
+                </div>
+              </div>
+            </>
+          )}
+        </div>
+
+        <ReportCreateModal />
+        <DoctorEditModal />
+        <DoctorDeleteModal />
+      </>
+    );
 };
 
 export default ReportList;
