@@ -19,13 +19,27 @@ export const appointmentApi = apiSlice.injectEndpoints({
                 }
             },
         }),
+        getRecentAppointments: builder.query({
+            query: () => `/appointment/get-recent-appointments`,
+            keepUnusedDataFor: 600,
+            providesTags: ["RecentAppointments"],
+            async onQueryStarted(arg, {queryFulfilled}){
+                try{
+                    const res = await queryFulfilled;
+                }catch(err) {
+                    //ErrorToast("Something Went Wrong!");
+                    //do nothing
+                    //console.log(err);
+                }
+            },
+        }),
         createAppointment: builder.mutation({
             query: (data) => ({
                 url: "/appointment/create-appointment",
                 method: "POST",
                 body: data
             }),
-            invalidatesTags: ["Appointments"],
+            invalidatesTags: ["Appointments", "RecentAppointments"],
             async onQueryStarted(arg, {queryFulfilled, dispatch}){
                 try{
                     const res = await queryFulfilled;
@@ -40,7 +54,7 @@ export const appointmentApi = apiSlice.injectEndpoints({
                 url: `/appointment/delete-appointment/${id}`,
                 method: "DELETE"
             }),
-            invalidatesTags: ["Appointments"],
+            invalidatesTags: ["Appointments", "RecentAppointments"],
             async onQueryStarted(arg, {queryFulfilled}){
                 try{
                     const res = await queryFulfilled;
@@ -58,7 +72,7 @@ export const appointmentApi = apiSlice.injectEndpoints({
                 method: "PUT",
                 body:data
             }),
-            invalidatesTags: ["Appointments"],
+            invalidatesTags: ["Appointments", "RecentAppointments"],
             async onQueryStarted(arg, {queryFulfilled}){
                 try{
                     const res = await queryFulfilled;
@@ -74,4 +88,4 @@ export const appointmentApi = apiSlice.injectEndpoints({
 })
 
 
-export const {useGetAppointmentsQuery, useCreateAppointmentMutation, useDeleteAppointmentMutation, useUpdateAppointmentMutation} = appointmentApi;
+export const {useGetAppointmentsQuery, useGetRecentAppointmentsQuery, useCreateAppointmentMutation, useDeleteAppointmentMutation, useUpdateAppointmentMutation} = appointmentApi;

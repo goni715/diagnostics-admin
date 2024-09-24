@@ -3,7 +3,7 @@ import {AiFillDelete} from "react-icons/ai";
 import ListLoading from "../Loader/ListLoading.jsx";
 import {
     SetAppointmentCreateModalOpen,
-    SetAppointmentDeleteModalOpen, SetAppointmentEditModalOpen, SetDoctorCreateModalOpen
+    SetAppointmentDeleteModalOpen, SetAppointmentEditModalOpen,
 } from "../../redux/features/modal/modalSlice.js";
 import {useDispatch} from "react-redux";
 import {useGetAppointmentsQuery} from "../../redux/features/appointment/appointmentApi.js";

@@ -6,7 +6,7 @@ import Error from "../validation/Error.jsx";
 import {SetLoginError} from "../../redux/features/auth/authSlice.js";
 
 const Login = () => {
-    const [login, {isLoading, isSuccess}] = useLoginMutation();
+    const [login, {isLoading}] = useLoginMutation();
     const dispatch = useDispatch();
     const error = useSelector((state)=> state.auth.LoginError);
 

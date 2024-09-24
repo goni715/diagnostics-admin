@@ -3,7 +3,7 @@ import { SetInvoiceUpdateModalOpen } from "../../redux/features/modal/modalSlice
 import { useDispatch } from "react-redux";
 import moment from "moment";
 import { FaEdit } from "react-icons/fa";
-import { useGetPatientsQuery } from "../../redux/features/patient/patientApi.js";
+import { useGetRecentInvoicesQuery } from "../../redux/features/patient/patientApi.js";
 import InvoiceUpdateModal from "../modal/InvoiceUpdateModal.jsx";
 import {
   SetInvoice,
@@ -13,8 +13,8 @@ import RecentLoading from "../Loader/RecentLoading.jsx";
 
 const RecentInvoices = () => {
   const dispatch = useDispatch();
-  const { data, isLoading, isError } = useGetPatientsQuery();
-  const patients = data?.data || [];
+  const { data, isLoading, isError } = useGetRecentInvoicesQuery(); //RecentInvoices or RecentPatients
+  const invoices = data?.data || [];
 
   const columns = [
     {
@@ -58,50 +58,50 @@ const RecentInvoices = () => {
 
   const tableData = [];
 
-  if (!isLoading && !isError && patients?.length > 0) {
-    for (let i = 0; i < patients.length; i++) {
+  if (!isLoading && !isError && invoices?.length > 0) {
+    for (let i = 0; i < invoices.length; i++) {
       tableData.push({
         key: Number(i + 1),
-        invoice: patients[i]?.invoiceNumber,
-        name: patients[i]?.name,
+        invoice: invoices[i]?.invoiceNumber,
+        name: invoices[i]?.name,
         status: (
           <>
             <span
               className={`capitalize ${
-                patients[i]?.status === "paid"
+                invoices[i]?.status === "paid"
                   ? "text-green-500"
                   : "text-red-500"
               }`}
             >
-              {patients[i]?.status}
+              {invoices[i]?.status}
             </span>
           </>
         ),
-        Status: patients[i]?.status,
-        price: patients[i]?.price,
-        deliveryDate: moment(patients[i]?.deliveryDate).format("ddd MMM DD"),
+        Status: invoices[i]?.status,
+        price: invoices[i]?.price,
+        deliveryDate: moment(invoices[i]?.deliveryDate).format("ddd MMM DD"),
         deliveryStatus: (
           <>
             <span
               className={`capitalize ${
-                patients[i]?.deliveryStatus === "delivered"
+                invoices[i]?.deliveryStatus === "delivered"
                   ? "text-green-500"
                   : "text-red-500"
               }`}
             >
-              {patients[i]?.deliveryStatus}
+              {invoices[i]?.deliveryStatus}
             </span>
           </>
         ),
-        DeliveryStatus: patients[i]?.deliveryStatus,
-        date: moment(patients[i]?.createdAt).format("YYYY-MM-DD"),
+        DeliveryStatus: invoices[i]?.deliveryStatus,
+        date: moment(invoices[i]?.createdAt).format("YYYY-MM-DD"),
         action: (
           <>
             <div className="flex space-x-2">
               <button
                 onClick={() => {
-                  dispatch(SetInvoiceId(patients[i]?._id));
-                  dispatch(SetInvoice(patients[i]));
+                  dispatch(SetInvoiceId(invoices[i]?._id));
+                  dispatch(SetInvoice(invoices[i]));
                   dispatch(SetInvoiceUpdateModalOpen(true));
                 }}
                 className="bg-green-500 hover:bg-green-700 duration-200 px-2 py-2 text-white font-bold text-md rounded-md"

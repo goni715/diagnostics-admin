@@ -19,6 +19,20 @@ export const patientApi = apiSlice.injectEndpoints({
                 }
             },
         }),
+        getRecentInvoices: builder.query({
+            query: () => `/invoice/get-recent-invoices`,
+            keepUnusedDataFor: 600,
+            providesTags: ["RecentInvoices"],
+            async onQueryStarted(arg, {queryFulfilled}){
+                try{
+                    const res = await queryFulfilled;
+                }catch(err) {
+                    //ErrorToast("Something Went Wrong!");
+                    //do nothing
+                    //console.log(err);
+                }
+            },
+        }),
         getPatient: builder.query({
             query: (id) => `/patient/get-patient/${id}`,
             keepUnusedDataFor: 600,
@@ -41,8 +55,8 @@ export const patientApi = apiSlice.injectEndpoints({
                 method: "POST",
                 body: data
             }),
-            invalidatesTags: ["Patients"],
-            async onQueryStarted(arg, {queryFulfilled, dispatch}){
+            invalidatesTags: ["Patients", "RecentInvoices"],
+            async onQueryStarted(arg, {queryFulfilled}){
                 try{
                     const res = await queryFulfilled;
                     SuccessToast("Patient Create Success");
@@ -59,6 +73,7 @@ export const patientApi = apiSlice.injectEndpoints({
             }),
             invalidatesTags: (result, error, arg) => [
                 "Patients",
+                "RecentInvoices",
                 {type: "Patient", id:arg.id}, //Dynamic Tag
             ],
             async onQueryStarted(arg, {queryFulfilled}){
@@ -76,4 +91,4 @@ export const patientApi = apiSlice.injectEndpoints({
 })
 
 
-export const {useGetPatientsQuery, useGetPatientQuery, useCreatePatientMutation, useUpdatePatientMutation} = patientApi;
+export const {useGetPatientsQuery, useGetRecentInvoicesQuery, useGetPatientQuery, useCreatePatientMutation, useUpdatePatientMutation} = patientApi;

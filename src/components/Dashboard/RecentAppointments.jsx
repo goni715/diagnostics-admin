@@ -5,7 +5,7 @@ import {
   SetAppointmentEditModalOpen,
 } from "../../redux/features/modal/modalSlice.js";
 import { useDispatch } from "react-redux";
-import { useGetAppointmentsQuery } from "../../redux/features/appointment/appointmentApi.js";
+import { useGetRecentAppointmentsQuery } from "../../redux/features/appointment/appointmentApi.js";
 import moment from "moment";
 import {
   SetAppointment,
@@ -18,7 +18,7 @@ import RecentLoading from "../Loader/RecentLoading.jsx";
 
 const RecentAppointments = () => {
   const dispatch = useDispatch();
-  const { data, isLoading, isError } = useGetAppointmentsQuery();
+  const { data, isLoading, isError } = useGetRecentAppointmentsQuery();
   const appointments = data?.data || [];
 
   const columns = [
