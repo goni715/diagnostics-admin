@@ -19,6 +19,7 @@ const CreatePatientForm = () => {
     const [testName, setTestName] = useState("");
     const [price, setPrice] = useState("");
     const [discount, setDiscount] = useState("");
+    const [netPrice, setNetPrice] = useState("0");
     const [modalOpen, setModalOpen] = useState(false);
     const tax = 10;
 
@@ -50,6 +51,18 @@ const CreatePatientForm = () => {
         }
     },[isSuccess, dispatch])
 
+
+
+    useEffect(()=>{
+        if(price && discount){
+            setNetPrice(Number(price) - (Number(price) * Number(discount/100)))
+        }
+    },[price, discount])
+
+
+
+
+
     const handleClick = () => {
         createPatient({
             name,
@@ -61,7 +74,7 @@ const CreatePatientForm = () => {
             bloodGroup,
             referredBy,
             testName,
-            price: ((price !=="" && discount !=="") && price - Number(500) * Number(discount/100))+Number(tax)
+            price: Number(netPrice) +Number(tax)
         })
     }
 
@@ -184,7 +197,7 @@ const CreatePatientForm = () => {
                     </div>
                     <div>
                         <label className="inline-block pb-2 text-md" htmlFor="net">Net Price</label>
-                        <input disabled={true} value={(price !=="" && discount !=="") && price - Number(500) * Number(discount/100)} required
+                        <input disabled={true} value={netPrice} required
                                className="w-full px-4 py-2 rounded-md focus:outline-none border border-gray-400"
                                type="number" id="net" placeholder="net price"/>
                     </div>
@@ -206,7 +219,7 @@ const CreatePatientForm = () => {
                    <div className="flex flex-col space-y-2 pt-6">
                        <div className="flex justify-between">
                            <p className="font-bold">Sub Total</p>
-                           <p>{(price !=="" && discount !=="") && price - Number(500) * Number(discount/100)}</p>
+                           <p>{netPrice}</p>
                        </div>
                        <div className="flex justify-between">
                            <p className="font-bold">Tax</p>
@@ -214,7 +227,7 @@ const CreatePatientForm = () => {
                        </div>
                        <div className="flex justify-between">
                            <p className="font-bold">Total</p>
-                           <p>{((price !=="" && discount !=="") && price - Number(500) * Number(discount/100))+Number(tax)}</p>
+                           <p>{Number(netPrice)+Number(tax)}</p>
                        </div>
                    </div>
 
